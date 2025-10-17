@@ -146,7 +146,7 @@ st.markdown("""
 st.set_page_config(page_title="Audio Transcription & Insights", page_icon="🎧", layout="centered")
 
 # Add logo at the top left
-logo_path = r"FMH New logo 24.png"
+logo_path = r"C:\Users\ACER\Desktop\Audio To Insights\FMH New logo 24.png"
 col1, col2 = st.columns([1, 4])
 with col1:
     st.image(logo_path, width=150)
@@ -198,10 +198,17 @@ if uploaded_file is not None:
                 if response.status_code == 200:
                     data = response.json()
 
-                    # Display transcription + summary
+                    # Display Malayalam transcription with timestamps
+                    transcription_text = data.get("transcription", "")
+                    if transcription_text:
+                        st.subheader("🗣️ Malayalam Transcript with Timestamps")
+                        st.text_area("", value=transcription_text, height=300, key="transcription_area")
+
+                    # Display summary
                     summary_text = data.get("summary", "")
-                    st.subheader("📝 Transcription & Summary")
-                    st.text_area("", value=summary_text, height=250)
+                    if summary_text:
+                        st.subheader("📝 Conversation Summary")
+                        st.text_area("", value=summary_text, height=200, key="summary_area")
 
                     # Provide download link for Excel
                     download_url = data.get("download_url")
@@ -234,26 +241,3 @@ if uploaded_file is not None:
 
             except Exception as e:
                 st.error(f"An error occurred: {e}")
-                # Add custom CSS for styling
-                st.markdown("""
-                    <style>
-                    .main {
-                        padding: 2rem;
-                        border-radius: 10px;
-                        background-color: #f8f9fa;
-                    }
-                    .stButton > button {
-                        width: 100%;
-                        background-color: #4CAF50;
-                        color: white;
-                        border-radius: 5px;
-                    }
-                    </style>
-                """, unsafe_allow_html=True)
-
-                # Add logo at the top
-                logo_path = r"C:\Users\ACER\Desktop\Audio To Insights\FMH New logo 24.png"
-                col1, col2, col3 = st.columns([1,2,1])
-                with col2:
-
-                    st.image(logo_path, width=300)
