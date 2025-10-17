@@ -146,7 +146,7 @@ st.markdown("""
 st.set_page_config(page_title="Audio Transcription & Insights", page_icon="🎧", layout="centered")
 
 # Add logo at the top left
-logo_path = r"C:\Users\ACER\Desktop\Audio To Insights\FMH New logo 24.png"
+logo_path = r"FMH New logo 24.png"
 col1, col2 = st.columns([1, 4])
 with col1:
     st.image(logo_path, width=150)
@@ -241,3 +241,4 @@ if uploaded_file is not None:
 
             except Exception as e:
                 st.error(f"An error occurred: {e}")
+
